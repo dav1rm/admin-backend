@@ -20,7 +20,7 @@ export default class Address extends BaseModel {
   declare number: number
 
   @column()
-  declare neighborhood: string
+  declare neighborhood: string | null
 
   @column()
   declare city: string
