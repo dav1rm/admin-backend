@@ -7,6 +7,9 @@ export default class Information extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
+  @column()
+  declare userId: number
+
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 
@@ -17,7 +20,7 @@ export default class Information extends BaseModel {
   declare father: string | null
 
   @column()
-  declare sign: number | null
+  declare sign: string | null
 
   @column()
   declare height: number | null
