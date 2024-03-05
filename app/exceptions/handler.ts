@@ -1,5 +1,7 @@
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
+import { errors as lucidErrors } from '@adonisjs/lucid'
+import { errors } from '@adonisjs/core'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -13,6 +15,15 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
+    if (error instanceof errors.E_ROUTE_NOT_FOUND) {
+      ctx.response.status(404).send({ error: 'Route not found' })
+      return
+    }
+    if (error instanceof lucidErrors.E_ROW_NOT_FOUND) {
+      ctx.response.status(400).send({ error: 'Resource not found' })
+      return
+    }
+
     return super.handle(error, ctx)
   }
 
